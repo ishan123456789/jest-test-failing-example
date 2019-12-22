@@ -1,0 +1,16 @@
+{
+    "rules": {
+        "class-name": true,
+        "comment-format": [true, "check-space"],
+        "no-var-keyword": true,
+        "no-internal-module": true,
+        "no-null-keyword": false,
+        "prefer-const": true,
+        "jsdoc-format": true,
+        "object-literal-sort-keys": false,
+        "max-classes-per-file": false,
+        "member-access": false,
+        "curly": false
+    },
+    "extends": ["tslint:latest", "tslint-config-prettier"]
+}
