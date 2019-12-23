@@ -1,4 +1,4 @@
-import { prop } from "@typegoose/typegoose";
+import { arrayProp, prop } from "@typegoose/typegoose";
 
 export class Locale {
     @prop()
@@ -112,6 +112,23 @@ export class Price {
     shippingTaxClass?: string;
 }
 
+export class Topup {
+    @prop()
+    name?: string;
+    @prop()
+    code?: string;
+    @prop()
+    taxClass?: string;
+    @prop()
+    priceNet?: number;
+    @prop()
+    priceGross?: number;
+    @prop()
+    quantity?: number;
+    @prop()
+    type?: string;
+}
+
 export class Item {
     @prop()
     name?: string;
@@ -129,25 +146,8 @@ export class Item {
     quantity?: number;
     @prop()
     type?: string;
-    @prop()
+    @arrayProp({ items: Topup })
     topups?: Topup[];
-}
-
-export class Topup {
-    @prop()
-    name?: string;
-    @prop()
-    code?: string;
-    @prop()
-    taxClass?: string;
-    @prop()
-    priceNet?: number;
-    @prop()
-    priceGross?: number;
-    @prop()
-    quantity?: number;
-    @prop()
-    type?: string;
 }
 
 export class Cancellation {
@@ -180,7 +180,7 @@ export class Remake {
 export class Status {
     @prop()
     current?: string;
-    @prop()
+    @arrayProp({ items: Timeline })
     timeline?: Timeline[];
 }
 export class Customer {

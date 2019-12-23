@@ -1,30 +1,21 @@
-import Koa from "koa";
-import pino from "koa-pino-logger";
-import helmet from "koa-helmet";
-import compress from "koa-compress";
-import bodyParser from "koa-bodyparser";
-import apiRouter from "./routes";
-import mongoose from "mongoose";
-import authMiddleware from "./helper/auth.middleware";
 import cors from "@koa/cors";
-import { checkOriginAgainstWhitelist } from "./common/whitelist";
-import { logger } from "./helper/logger";
+import Koa from "koa";
+import bodyParser from "koa-bodyparser";
+import compress from "koa-compress";
+import helmet from "koa-helmet";
+import mongoose from "mongoose";
+import apiRouter from "./routes";
 
 const app = new Koa();
 app.use(helmet())
     .use(bodyParser())
-    .use(
-        pino({
-            level: process.env.DEBUG_LEVEL || "debug",
-        }),
-    )
+
     .use(
         compress({
             threshold: 2048,
             flush: require("zlib").Z_SYNC_FLUSH,
         }),
     )
-    .use(authMiddleware)
     .use(apiRouter.routes())
     .use(cors({ origin: checkOriginAgainstWhitelist }));
 mongoose
@@ -33,7 +24,7 @@ mongoose
         reconnectTries: 10,
         useUnifiedTopology: true,
     })
-    .catch(error => logger.error("Error while connecting to mongodb", error));
+    .catch(error => console.error("Error while connecting to mongodb", error));
 const port = process.env.PORT || 1337;
-logger.info(`Server running on port http://localhost:${port}`);
+console.info(`Server running on port http://localhost:${port}`);
 export default app.listen(port);

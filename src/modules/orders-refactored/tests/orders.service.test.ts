@@ -1,6 +1,6 @@
-// import axios from "axios";
+import axios from "axios";
 import { advanceTo } from "jest-date-mock";
-import { OrderModel } from "../orders.interface";
+import { OrderFromDB, OrderModel } from "../orders.interface";
 import { OrderService } from "../orders.service";
 import {
     exampleOrder,
@@ -10,7 +10,6 @@ import {
 } from "./orders.helper.data";
 const mockOrderModel = (OrderModel as unknown) as jest.Mock<typeof OrderModel> &
     typeof OrderModel;
-jest.mock("../orders.interface");
 jest.mock("axios");
 
 describe("Order Helper", () => {
@@ -62,12 +61,14 @@ describe("Order Helper", () => {
         isOrderLate = await orderService.checkIsOrderLate(order);
         expect(isOrderLate).toEqual(true);
     });
-    // it("Check createUpdateDelayIncident", async () => {
-    //     const postMock = jest.fn(() => ({}));
-    //     const putMock = jest.fn(() => ({}));
-    //     (axios.post as jest.Mock<any>).mockImplementationOnce(postMock);
-    //     (axios.put as jest.Mock<any>).mockImplementationOnce(putMock);
-    //     let res = await orderService.createUpdateDelayIncident(({} as unknown) as OrderFromDB);
-    //     expect(res).toBe(undefined);
-    // });
+    it("Check createUpdateDelayIncident", async () => {
+        const postMock = jest.fn(() => ({}));
+        const putMock = jest.fn(() => ({}));
+        (axios.post as jest.Mock<any>).mockImplementationOnce(postMock);
+        (axios.put as jest.Mock<any>).mockImplementationOnce(putMock);
+        let res = await orderService.createUpdateDelayIncident(
+            ({} as unknown) as OrderFromDB,
+        );
+        expect(res).toBe(undefined);
+    });
 });

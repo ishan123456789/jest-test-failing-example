@@ -1,17 +1,17 @@
-import * as yup from "yup";
-import { prop, getModelForClass } from "@typegoose/typegoose";
+import { arrayProp, getModelForClass, prop } from "@typegoose/typegoose";
 import { ObjectId } from "mongodb";
+import * as yup from "yup";
 import {
-    Locale,
+    Cancellation,
     Customer,
     Delivery,
-    Status,
-    Payment,
-    TaxClass,
-    Price,
     Item,
-    Cancellation,
+    Locale,
+    Payment,
+    Price,
     Remake,
+    Status,
+    TaxClass,
 } from "./order.additional.interface";
 
 export class Order {
@@ -43,11 +43,11 @@ export class Order {
     status?: Status;
     @prop()
     payment?: Payment;
-    @prop()
+    @arrayProp({ items: TaxClass })
     taxClasses?: TaxClass[];
     @prop()
     price?: Price;
-    @prop()
+    @arrayProp({ items: Item })
     items?: Item[];
     @prop()
     cancellation?: Cancellation;
