@@ -29,7 +29,7 @@
         "koa-router": "^7.4.0",
         "koa-yup-validator": "^1.0.1",
         "lodash": "^4.17.15",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "mongoose": "^5.7.7",
         "pg": "^7.12.1",
         "pino": "^5.14.0",
