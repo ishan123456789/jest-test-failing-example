@@ -20,7 +20,7 @@
         "dotenv": "^8.2.0",
         "jest": "^24.9.0",
         "jest-date-mock": "^1.0.7",
-        "knex": "^0.19.5",
+        "knex": "^2.4.0",
         "koa": "^2.10.0",
         "koa-bodyparser": "^4.2.1",
         "koa-compress": "^3.0.0",
